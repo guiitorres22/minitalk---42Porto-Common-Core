@@ -6,7 +6,7 @@
 /*   By: gtinani- <gtinani-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:44:39 by gtinani-          #+#    #+#             */
-/*   Updated: 2024/09/30 15:51:09 by gtinani-         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:49:50 by gtinani-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,20 @@
 void ft_sendbit(int pid, unsigned char character)
 {
     int bit;
-    // unsigned char    temp;
+    unsigned char    temp;
 
-    // temp = character,
+    temp = character,
 
     bit = 8;
-    while (bit-- > 0)
+    while (bit > 0)
     {
-        // temp = character >> bit;
-        if ((character >> bit) & 1)  
-        {
-            kill(pid, SIGUSR1); 
-        }
+        bit--;
+        temp = character >> bit;
+        if (temp % 2 == 0)  
+            kill(pid, SIGUSR2); 
         else 
         {
-            kill(pid, SIGUSR2); 
+            kill(pid, SIGUSR1); 
         }
         usleep(100);
     }
